@@ -1,0 +1,61 @@
+@import url('https://unpkg.com/css.gg@2.0.0/icons/css/menu-left-alt.css');
+
+.homePage{
+    display: flex;
+    width: 100%;
+    height: 100%;
+    flex-direction: row;
+    /* justify-content: space-between; */
+}
+.home{
+   width: 100vw;
+    height: 100vh;
+}
+.Friend h4 {
+    padding-left: 20px;
+    margin: 0;
+    
+}
+.Friend{
+    width: 350px;
+    height: 100vh;
+    margin-right: 10px ;
+    display: flex;
+    flex-direction: column;
+    padding-top: 35px;
+}
+
+.gg-menu-left-alt {
+    box-sizing: border-box;
+    position: relative;
+    display: block;
+    width: 16px;
+    height: 14px;
+    transform: scale(var(--ggs,1));
+    margin-left: 17px;
+    margin-top: 15px;
+    margin-bottom: 20px;
+    margin-right: 15px;
+   }
+   
+   .gg-menu-left-alt::after,
+   .gg-menu-left-alt::before {
+    content: "";
+    position: absolute;
+    box-sizing: border-box;
+    display: block;
+    height: 2px;
+    border-radius: 4px;
+    background: currentColor;
+    
+   }
+   
+   .gg-menu-left-alt::before {
+    width: 16px;
+    box-shadow: 0 12px 0
+   }
+   
+   .gg-menu-left-alt::after {
+    width: 10px;
+    top: 6px
+   } 
