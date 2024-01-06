@@ -1,12 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import "./home.css";
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { curUser, user_secret } from "../context";
 import NavBar from "../components/NavBar";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
-import { uID } from "../context";
+import { uID, User_Friends } from "../context";
 import ShowFriend from "../components/showFriend";
 import { PropagateLoader } from 'react-spinners'
 import DirectChatPage from "../components/Chat";
@@ -19,9 +18,9 @@ export default function HomePage() {
   let [show, setShow] = useState(false)
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
-  const [friendList, setFriendList] = useState([]);
-  const [friendInfo, setFriendInfo] = useState([]);
-  const [loading, setLoading] = useState(true);
+  // const [friendList, setFriendList] = useState([]);
+  // const [friendInfo, setFriendInfo] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
 
@@ -33,46 +32,48 @@ export default function HomePage() {
 
 
 
-  useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      try {
-        const response = await axios.post("http://localhost:1010/search", { id: uID, Type: "id" });
-        setFriendList(response.data[0].friends);
-      } catch (error) {
-        console.error("Error fetching friend list:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     setLoading(true);
+  //     try {
+  //       const response = await axios.post("http://localhost:1010/search", { id: uID, Type: "id" });
+  //       setFriendList(response.data[0].friends);
+  //     } catch (error) {
+  //       console.error("Error fetching friend list:", error);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
 
-    fetchData();
-  }, []);
-
-  useEffect(() => {
-    const fetchFriendInfo = async () => {
-      setLoading(true);
-      try {
-        const friendInfoPromises = friendList.map(async (friendId) => {
-          const response = await axios.post("http://localhost:1010/search", { id: friendId, Type: "id" });
-          return response.data[0];
-        });
-        const friendInfoResults = await Promise.all(friendInfoPromises);
-        setFriendInfo(friendInfoResults);
-      } catch (error) {
-        console.error("Error fetching friend info:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    if (friendList.length > 0) {
-      fetchFriendInfo();
-    }
-  }, [friendList]);
+  //   fetchData();
+  // }, []);
 
 
-  const AllFriends = friendInfo.map((friend) => (
+
+  // useEffect(() => {
+  //   const fetchFriendInfo = async () => {
+  //     setLoading(true);
+  //     try {
+  //       const friendInfoPromises = friendList.map(async (friendId) => {
+  //         const response = await axios.post("http://localhost:1010/search", { id: friendId, Type: "id" });
+  //         return response.data[0];
+  //       });
+  //       const friendInfoResults = await Promise.all(friendInfoPromises);
+  //       setFriendInfo(friendInfoResults);
+  //     } catch (error) {
+  //       console.error("Error fetching friend info:", error);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
+
+  //   if (friendList.length > 0) {
+  //     fetchFriendInfo();
+  //   }
+  // }, [friendList]);
+
+
+  const AllFriends = User_Friends.map((friend) => (
     friend && <ShowFriend 
       User={friend.User} key={friend.id} Id={friend._id} 
       Name={friend.Name}
@@ -93,7 +94,7 @@ export default function HomePage() {
       <i className="gg-menu-left-alt" onClick={hide} ></i>
       {show == true && (<div className="Friend">
      
-          <h4>{friendList.length} Friends</h4>
+          <h4>{User_Friends.length} Friends</h4>
           {AllFriends}
         </div>
         )}

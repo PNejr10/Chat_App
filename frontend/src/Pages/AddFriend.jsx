@@ -5,6 +5,7 @@ import axios from "axios";
 import { uID, curUser } from "../context";
 import Friends from "../components/Friends";
 import { useSnackbar } from "notistack";
+import { Set_User_Friends, User_Friends } from "../context";
 
 export default function AddFriend() {
   useEffect(() => {
@@ -24,7 +25,7 @@ export default function AddFriend() {
   // the User's friend's List
   let [friendList, setFriendList] = useState([]);
   let [friendInfo, setFriendInfo] = useState([]);
-  const didMountRef = useRef(false);
+
  
   
 
@@ -125,6 +126,10 @@ export default function AddFriend() {
     );
   });
 
+
+
+// this use effect goes through the friends in the firend list, and retrives each of 
+// the friends info from the DB and stores in an array of objects called FreindInfo
   useEffect(() => {
       const fetchFriendInfo = async () => {
         const friendInfoPromises = friendList.map(async (friendId) => {
@@ -139,6 +144,7 @@ export default function AddFriend() {
         try {
           const friendInfoResults = await Promise.all(friendInfoPromises);
           setFriendInfo(friendInfoResults);
+          Set_User_Friends(friendInfoResults);
         } catch (error) {
           console.error("Error fetching friend info:", error);
         }
@@ -148,7 +154,11 @@ export default function AddFriend() {
   }, [friendList]);
 
 
-  const AllFriends = friendInfo.map((friend) => (
+
+
+
+
+  const AllFriends = User_Friends.map((friend) => (
     friend && <Friends 
     Name={friend.Name}
     User={friend.User}
@@ -160,6 +170,7 @@ export default function AddFriend() {
   ));
 
 
+  
 
   return (
     <>
