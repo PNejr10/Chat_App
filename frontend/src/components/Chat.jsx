@@ -1,4 +1,4 @@
-import { curUser, user_secret } from '../Info'
+import { curUser, user_secret } from '../context'
 import React, { useState } from 'react'
 import { ChatEngine, getOrCreateChat } from 'react-chat-engine'
 

@@ -4,7 +4,7 @@ import { Link} from 'react-router-dom';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
-import { setCurUser, setID } from '../Info'
+import { setCurUser, setID } from '../context'
 
 
 

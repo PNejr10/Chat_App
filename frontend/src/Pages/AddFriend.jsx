@@ -2,7 +2,7 @@ import "./AddFrined.css";
 import NavBar from "../components/NavBar";
 import { useState, useEffect, useRef  } from "react";
 import axios from "axios";
-import { uID, curUser } from "../Info";
+import { uID, curUser } from "../context";
 import Friends from "../components/Friends";
 import { useSnackbar } from "notistack";
 

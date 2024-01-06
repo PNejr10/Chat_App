@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 // import { useState } from "react";
 import { useSnackbar } from "notistack";
-import { setCurUser, curUser } from "../Info";
+import { setCurUser, curUser } from "../context";
 
 export default function NavBar() {
   const navigate = useNavigate();

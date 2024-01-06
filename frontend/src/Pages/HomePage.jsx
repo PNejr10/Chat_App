@@ -2,11 +2,11 @@
 import "./home.css";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { curUser, user_secret } from "../Info";
+import { curUser, user_secret } from "../context";
 import NavBar from "../components/NavBar";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
-import { uID } from "../Info";
+import { uID } from "../context";
 import ShowFriend from "../components/showFriend";
 import { PropagateLoader } from 'react-spinners'
 import DirectChatPage from "../components/Chat";

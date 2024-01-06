@@ -3,7 +3,7 @@ import "./login.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
 import axios from "axios";
-import { setCurUser, setID, setUser_secret } from "../Info";
+import { setCurUser, setID, setUser_secret } from "../context";
 
 export default function Login() {
   const { enqueueSnackbar } = useSnackbar();
