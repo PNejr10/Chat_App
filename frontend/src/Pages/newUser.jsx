@@ -4,7 +4,7 @@ import { Link} from 'react-router-dom';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
-import { setCurUser, setID } from '../context'
+import { setCurUser, setID, setUser_secret } from '../context'
 
 
 
@@ -66,6 +66,7 @@ export default function Login() {
       enqueueSnackbar('User Created successfully', { variant: 'success' });
       setCurUser(formData.User)
       setID(response.data._id)
+      setUser_secret(formData.Password)
       createUser();
       navigate('/Home');
      

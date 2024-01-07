@@ -1,6 +1,6 @@
 import "./AddFrined.css";
 import NavBar from "../components/NavBar";
-import { useState, useEffect, useRef  } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { uID, curUser } from "../context";
 import Friends from "../components/Friends";
@@ -39,10 +39,7 @@ export default function AddFriend() {
       return;
 
     }
-    console.log(data)
     axios.post("http://localhost:1010/search", data).then((response) => {
-      console.log('here')
-      console.log(response.data)
       setRes(response.data);
       if (res) setShow(!show);
     });
@@ -58,7 +55,9 @@ export default function AddFriend() {
     });
   }
 
-  function handleClick() {
+
+
+function handleClick() {
     setShow(!show);
   }
 
@@ -84,6 +83,8 @@ export default function AddFriend() {
         console.log(response.data);
       });
   }
+
+
 
   // this gets the current user's friend list from the DB and sets it to FriendList array
   useEffect(() => {
