@@ -9,6 +9,7 @@ import { setCurUser, setID, setUser_secret } from '../context'
 
 
 
+
 export default function Login() {
   const [formData, setFormData] = React.useState({
     Name: "",
@@ -47,7 +48,7 @@ export default function Login() {
   
     try {
       const response = await axios.post(url, userData, { headers });
-      console.log('User created successfully:', response.data);
+      console.log(response)
     } catch (error) {
       console.error('Error creating user:', error.message);
     }
@@ -68,6 +69,7 @@ export default function Login() {
       setID(response.data._id)
       setUser_secret(formData.Password)
       createUser();
+      // GetFriends();
       navigate('/Home');
      
     })

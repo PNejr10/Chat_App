@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 // import { useState } from "react";
 import { useSnackbar } from "notistack";
-import { setCurUser, curUser } from "../context";
+import { setCurUser, curUser, setUser_secret, Set_User_Friends } from "../context";
 
 export default function NavBar() {
   const navigate = useNavigate();
@@ -14,6 +14,8 @@ export default function NavBar() {
     if (name == "gg-log-out"){
         enqueueSnackbar("GoodBye " + curUser, { variant: "success" });
         setCurUser("");
+        setUser_secret("")
+        Set_User_Friends([])
         navigate("/");
     }
 

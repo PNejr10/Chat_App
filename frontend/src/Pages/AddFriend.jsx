@@ -5,7 +5,12 @@ import axios from "axios";
 import { uID, curUser } from "../context";
 import Friends from "../components/Friends";
 import { useSnackbar } from "notistack";
-import { Set_User_Friends, User_Friends } from "../context";
+import {
+  Set_User_Friends,
+  User_Friends,
+  projectID,
+  user_secret,
+} from "../context";
 
 export default function AddFriend() {
   useEffect(() => {
@@ -15,7 +20,6 @@ export default function AddFriend() {
     }
   }, []);
 
-  
   // form data
   const [data, setData] = useState({ User: "", Type: "Username" });
   // res is the list of all the people that have the username that user searched
@@ -26,9 +30,6 @@ export default function AddFriend() {
   let [friendList, setFriendList] = useState([]);
   let [friendInfo, setFriendInfo] = useState([]);
 
- 
-  
-
   const { enqueueSnackbar } = useSnackbar();
 
   // this functions finds all the users that have the entered username
@@ -37,13 +38,11 @@ export default function AddFriend() {
     if (data.User == "") {
       enqueueSnackbar("Search Bar Empty!", { variant: "error" });
       return;
-
     }
     axios.post("http://localhost:1010/search", data).then((response) => {
       setRes(response.data);
       if (res) setShow(!show);
     });
-    
   }
 
   function HandleChange(event) {
@@ -55,14 +54,38 @@ export default function AddFriend() {
     });
   }
 
-
-
-function handleClick() {
+  function handleClick() {
     setShow(!show);
   }
 
+  const DeleteChat = async (name) => {
+    const headers = {
+      "Project-ID": projectID,
+      "User-Name": curUser,
+      "User-Secret": user_secret,
+    };
+    let url = "https://api.chatengine.io/chats/";
+    try {
+      const response = await axios.get(url, { headers });
+      const arr = response.data;
+      for (let i = 0; i < arr.length; i++) {
+        if (arr[i].people[0].person.username == name) {
+          const url2 = `https://api.chatengine.io/chats/${arr[i].id}/`;
+          try {
+            const res = await axios.delete(url2, { headers });
+            console.log(res)
+          } catch (er) {
+            console.error("Error deleting the chat", er.message);
+          }
+        }
+      }
+    } catch (error) {
+      console.error("Error getting the chats", error.message);
+    }
+  };
 
   function handleFriendClick(friend) {
+    console.log(friend)
     // Check if the friend is already in the friendList
     if (!friendList.some((f) => f === friend.id)) {
       // Add the friend to the friendList
@@ -72,6 +95,8 @@ function handleClick() {
       setFriendList((prevFriendList) =>
         prevFriendList.filter((f) => f !== friend.id)
       );
+     
+      DeleteChat(friend.username);
     }
     const data = {
       id: uID,
@@ -84,12 +109,9 @@ function handleClick() {
       });
   }
 
-
-
   // this gets the current user's friend list from the DB and sets it to FriendList array
   useEffect(() => {
     const fetchFriendList = async () => {
-      
       try {
         const data = { id: uID, Type: "id" };
         const response = await axios.post("http://localhost:1010/search", data);
@@ -98,11 +120,9 @@ function handleClick() {
         console.error("Error fetching friend list:", error);
       }
     };
-  
-    fetchFriendList();
-  },[]);
 
-  
+    fetchFriendList();
+  }, []);
 
   const FriendElements = res.map((friend) => {
     if (friend._id === uID) {
@@ -127,85 +147,72 @@ function handleClick() {
     );
   });
 
-
-
-// this use effect goes through the friends in the firend list, and retrives each of 
-// the friends info from the DB and stores in an array of objects called FreindInfo
+  // this use effect goes through the friends in the firend list, and retrives each of
+  // the friends info from the DB and stores in an array of objects called FreindInfo
   useEffect(() => {
-      const fetchFriendInfo = async () => {
-        const friendInfoPromises = friendList.map(async (friendId) => {
-          const data = { id: friendId, Type: "id" };
-          const response = await axios.post(
-            "http://localhost:1010/search",
-            data
-          );
-          return response.data[0];
-        });
+    const fetchFriendInfo = async () => {
+      const friendInfoPromises = friendList.map(async (friendId) => {
+        const data = { id: friendId, Type: "id" };
+        const response = await axios.post("http://localhost:1010/search", data);
+        return response.data[0];
+      });
 
-        try {
-          const friendInfoResults = await Promise.all(friendInfoPromises);
-          setFriendInfo(friendInfoResults);
-          Set_User_Friends(friendInfoResults);
-        } catch (error) {
-          console.error("Error fetching friend info:", error);
-        }
-      };
-      fetchFriendInfo();
-
+      try {
+        const friendInfoResults = await Promise.all(friendInfoPromises);
+        setFriendInfo(friendInfoResults);
+        Set_User_Friends(friendInfoResults);
+      } catch (error) {
+        console.error("Error fetching friend info:", error);
+      }
+    };
+    fetchFriendInfo();
   }, [friendList]);
 
-
-
-
-
-
-  const AllFriends = User_Friends.map((friend) => (
-    friend && <Friends 
-    Name={friend.Name}
-    User={friend.User}
-    id={friend._id}
-    text={"Remove"}
-    show= {false}
-    onFriendClick={handleFriendClick}
-    />
-  ));
-
-
-  
+  const AllFriends = User_Friends.map(
+    (friend) =>
+      friend && (
+        <Friends
+          Name={friend.Name}
+          User={friend.User}
+          id={friend._id}
+          text={"Remove"}
+          show={false}
+          onFriendClick={handleFriendClick}
+        />
+      )
+  );
 
   return (
     <>
       <NavBar />
-     
-     <div className='main-page'>
-      <div className="test">
-        {AllFriends}
-      </div>
-      <div className="main-Friend"> 
-      {!show && (
-        <div className="search">
-          <form onSubmit={handleSubmit}>
-            <h1>Enter a Username to add the Friend</h1>
-            <input
-              type="text"
-              placeholder="Username"
-              autoComplete="off"
-              name="User"
-              value={data.User}
-              autoFocus
-              onChange={HandleChange}
-            />
-            <button type="submit">Search</button>
-          </form>
+
+      <div className="main-page">
+        <div className="test">{AllFriends}</div>
+        <div className="main-Friend">
+          {!show && (
+            <div className="search">
+              <form onSubmit={handleSubmit}>
+                <h1>Enter a Username to add the Friend</h1>
+                <input
+                  type="text"
+                  placeholder="Username"
+                  autoComplete="off"
+                  name="User"
+                  value={data.User}
+                  autoFocus
+                  onChange={HandleChange}
+                />
+                <button type="submit">Search</button>
+              </form>
+            </div>
+          )}
+          {show && (
+            <div className="list">
+              <i className="gg-close-o" onClick={handleClick}></i>
+              {FriendElements}
+            </div>
+          )}
         </div>
-      )}
-      {show && (
-        <div className="list">
-          <i className="gg-close-o" onClick={handleClick}></i>
-          {FriendElements}
-        </div>
-      )}
-      </div>
       </div>
     </>
   );

@@ -23,6 +23,7 @@ export default function Friends (props){
        
         props.onFriendClick({
           id: props.id,
+          username: props.User,
         });
       }
     
