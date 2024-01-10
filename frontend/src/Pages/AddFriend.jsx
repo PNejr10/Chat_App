@@ -187,7 +187,18 @@ export default function AddFriend() {
       <NavBar />
 
       <div className="main-page">
-        <div className="test">{AllFriends}</div>
+      
+
+        <div className="test">
+          
+          {friendList.length == 0 && (
+        <h2 className="text-before">
+          You have 0 friends! Please add friends so they can appear in here
+        </h2>
+      )}
+      {AllFriends}
+          
+          </div>
         <div className="main-Friend">
           {!show && (
             <div className="search">

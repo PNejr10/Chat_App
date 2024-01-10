@@ -39,7 +39,6 @@ export default function NavBar() {
          the icon being clicked*/}
         
         <i className="gg-user-add" onClick={handleClick}></i>
-        <i className="gg-profile" onClick={handleClick}></i>
         <i className="gg-log-out" onClick={handleClick} ></i>
 
       </div>

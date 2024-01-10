@@ -45,15 +45,6 @@
     margin-bottom: -2px
    }
    
-   .gg-profile,
-   .gg-profile::after,
-   .gg-profile::before {
-    display: block;
-    box-sizing: border-box;
-    border: 2px solid;
-    border-radius: 100px
-   }
-   
     .gg-log-out {
  box-sizing: border-box;
  position: relative;

@@ -32,11 +32,8 @@
     width: 500px;
     height: 100vh;
     text-align: center;
-    border: 10px solid;
     border-radius: 3px;
-    border-left:none;
-    border-top: none;
-    border-bottom: none;
+    
 
 }
 
@@ -47,7 +44,7 @@
 
 
 .search input {
-    width: 100%;
+    width: 98%;
     resize: none;
     border-radius: 30px;
     height: 50px;
@@ -105,3 +102,12 @@
 }
 
 
+.text-before{
+    font-style: italic;
+    font: Cu;
+    margin-left: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}

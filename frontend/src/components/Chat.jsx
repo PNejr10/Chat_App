@@ -8,18 +8,24 @@ import { User_Friends, projectID } from '../context';
 const DirectChatPage = () => {
 
 	const [username, setUsername] = useState('')
-	const [vlaid, setValid] = useState(false)
+	// const [valid, setValid] = useState(false)
 	const { enqueueSnackbar } = useSnackbar();
 
 
-	function createDirectChat(creds) {
+	function check (){
 		for (let i = 0; i < User_Friends.length; i++ ){
-			if (username === User_Friends[i].Name){
-				setValid(true)
-				break
+			if (username == User_Friends[i].Name){
+				return true
 			}
 		}
-		if (username.length>0 && !vlaid){
+		return false
+
+	}
+
+	function createDirectChat(creds) {
+		const valid = check()
+		console.log(valid)
+		if (username.length>0 && !valid){
 			enqueueSnackbar(`${username} is not your friend. Please enter a friend's username!`, { variant: "error" });
 			return
 		}
