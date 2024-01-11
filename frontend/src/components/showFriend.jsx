@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 // Updated showFriend component with PascalCase
-import './ShowFriend.css';
+import '../styles/ShowFriend.css';
 
 export default function ShowFriend(props) {
    

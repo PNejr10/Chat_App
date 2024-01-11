@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import "./home.css";
+import "../styles/home.css";
 import { useEffect, useState } from "react";
 import { curUser, user_secret } from "../context";
 import NavBar from "../components/NavBar";

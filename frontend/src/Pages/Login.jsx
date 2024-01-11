@@ -1,5 +1,5 @@
 import React from "react";
-import "./login.css";
+import "../styles/login.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
 import axios from "axios";

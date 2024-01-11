@@ -2,7 +2,7 @@
     box-shadow: 0 2px 15px rgb(0 0 0 / 68%);
   }
   
-  /* Chat List */
+
   .ce-wrapper {
     background-color: #4a5162 !important;
   }
@@ -41,7 +41,7 @@
     background-color: white !important;
   }
   
-  /* Chat Feed */
+
   
   .ce-chat-title-container {
     background-color: #4a5162 !important;
@@ -126,7 +126,7 @@
     color: rgba(255, 255, 255, 0.705) !important;
   }
   
-  /* Chat Settings */
+
   
   .ce-settings {
     background-color: #4a5162 !important;

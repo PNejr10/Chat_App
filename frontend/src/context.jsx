@@ -9,6 +9,7 @@ export let User_Friends = []
 export const projectID = 'Add ProjectID for ChatEngine'
 export const privateKey =   'Add Private Key for ChatEngine'
 
+
 export const setCurUser = (value) => {
     curUser = value;
 };

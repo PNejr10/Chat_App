@@ -1,4 +1,4 @@
-import "./AddFrined.css";
+import "../styles/AddFrined.css";
 import NavBar from "../components/NavBar";
 import { useState, useEffect } from "react";
 import axios from "axios";

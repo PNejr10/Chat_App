@@ -3,7 +3,9 @@ import React, { useState } from 'react'
 import { ChatEngine, getOrCreateChat } from 'react-chat-engine'
 import { useSnackbar } from "notistack";
 import { User_Friends, projectID } from '../context';
-
+// you can import the styles for the chat component by uncommenting the line below
+// but I like the default style better
+// import '../styles/chat.css'
 
 const DirectChatPage = () => {
 
@@ -14,7 +16,7 @@ const DirectChatPage = () => {
 
 	function check (){
 		for (let i = 0; i < User_Friends.length; i++ ){
-			if (username == User_Friends[i].Name){
+			if (username == User_Friends[i].User){
 				return true
 			}
 		}
