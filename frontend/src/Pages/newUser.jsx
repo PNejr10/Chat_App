@@ -4,7 +4,7 @@ import { Link} from 'react-router-dom';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
-import { setCurUser, setID, setUser_secret } from '../context'
+import { setCurUser, setID, setUser_secret, privateKey } from '../context'
 
 
 
@@ -36,7 +36,7 @@ export default function Login() {
   const createUser = async () => {
     const url = 'https://api.chatengine.io/users/';
     const headers = {
-      'PRIVATE-KEY': '6468a958-577a-4315-88ba-5a61dfb16725',
+      'PRIVATE-KEY': privateKey,
     };
   
     const userData = {
